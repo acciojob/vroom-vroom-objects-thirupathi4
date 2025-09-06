@@ -1,25 +1,26 @@
 // Complete the js code
 function Car(make, model) {
-	constructor(make,model);
-	this.make=make;
-	this.model=model;
-	getMakeModel(){
-		return `${make} ${model}`;
-	}
+  this.make = make;
+  this.model = model;
 }
 
-function SportsCar extends Car(make, model, topSpeed) {
-	constructor(make,model,topSpeed);
-	this.topSpeed=topSpeed;
-	getTopSpeed(){
-		return `${topSpeed}`;
-	}
-	
-}
-const car = new SportsCar("Ferrari", "Testarossa", 200);
-console.log(car.getMakeModel()); // Output: Ferrari Testarossa
-console.log(car.getTopSpeed()); // Output: 200
+Car.prototype.getMakeModel = function () {
+  return this.make + " " + this.model;
+};
 
+function SportsCar(make, model, topSpeed) {
+  // call Car constructor
+  Car.call(this, make, model);
+  this.topSpeed = topSpeed;
+}
+
+// Inherit Car prototype
+SportsCar.prototype = Object.create(Car.prototype);
+SportsCar.prototype.constructor = SportsCar;
+
+SportsCar.prototype.getTopSpeed = function () {
+  return this.topSpeed;
+};
 // Do not change the code below
 window.Car = Car;
 window.SportsCar = SportsCar;
